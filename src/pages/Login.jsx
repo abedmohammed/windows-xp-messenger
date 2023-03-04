@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Windows XP Messengar</span>
+        <span className="logo">Windows XP Messenger</span>
         <span className="title">Login</span>
         <form>
           <input type="email" placeholder="email" />
