@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import Add from "../assets/images/addAvatar.png";
+import Add from "../assets/images/addAvatar.ico";
+import Warning from "../assets/images/warning.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import TitleBar from "../components/TitleBar";
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -75,21 +77,33 @@ const Register = () => {
   };
 
   return (
-    <div className="formContainer">
-      <div className="formWrapper">
-        <span className="logo">Windows XP Messenger</span>
-        <span className="title">Register</span>
-        <form onSubmit={handleSubmit}>
+    <div className="window">
+      <TitleBar />
+      <div className="window-body">
+        <p>Register:</p>
+        {err && (
+          <div
+            className="field-row"
+            style={{ marginTop: "15px", marginBottom: "10px" }}
+          >
+            <img src={Warning} alt="" style={{ width: "25px" }} />
+            <span>Something went wrong</span>
+          </div>
+        )}
+        <form className="field-row-stacked" onSubmit={handleSubmit}>
           <input type="text" placeholder="display name" />
           <input type="email" placeholder="email" />
           <input type="password" placeholder="password" />
-          <input style={{ display: "none" }} type="file" id="file" />
-          <label htmlFor="file">
+          <input
+            style={{ display: "none", width: "max-content" }}
+            type="file"
+            id="file"
+          />
+          <label className="field-row" htmlFor="file">
             <img src={Add} alt="" />
             <span>Add profile picture</span>
           </label>
           <button>Sign Up</button>
-          {err && <span>Something went wrong</span>}
         </form>
         <p>
           You already have an account? <Link to="/login">Login</Link>

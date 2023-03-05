@@ -3,19 +3,18 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 
-const NavBar = () => {
+const UserBar = () => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <div className="navbar">
-      <span className="logo">Windows XP Messenger</span>
-      <div className="user">
+    <div className="userbar">
+      <div className="user field-row">
         <img src={currentUser.photoURL} alt="" />
-        <span>{currentUser.displayName}</span>
+        <p>{currentUser.displayName}</p>
         <button onClick={() => signOut(auth)}>logout</button>
       </div>
     </div>
   );
 };
 
-export default NavBar;
+export default UserBar;

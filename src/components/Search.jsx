@@ -100,10 +100,10 @@ const Search = () => {
       </div>
       {err && <span>Something went wrong!</span>}
       {user && (
-        <div className="userChat" onClick={() => handleSelect(user)}>
+        <div className="userChat field-row" onClick={() => handleSelect(user)}>
           <img src={user.photoURL} alt="" />
           <div className="userChatInfo">
-            <span>{user.displayName}</span>
+            <p>{user.displayName}</p>
           </div>
         </div>
       )}
