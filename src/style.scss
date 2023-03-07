@@ -30,19 +30,13 @@ body {
   margin: 0;
 }
 
-img {
-  height: 48px;
-  width: 48px;
-  object-fit: cover;
-}
-
 .home {
   width: 800px;
-  height: 80vh;
 
   .container {
     display: flex;
-    height: calc(100% - 44px);
+    gap: 10px;
+    height: 700px;
 
     .sidebar {
       border: 1px solid #7f9db9;
@@ -63,13 +57,22 @@ img {
           border: 1px solid #7f9db9;
           padding: 5px;
 
-          p {
+          img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
           }
         }
       }
 
       .chats {
         padding: 5px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+        }
 
         .userChatInfo {
           p {
@@ -116,9 +119,8 @@ img {
 
       .messages {
         flex: 1;
-      }
-
-      .messages {
+        border: 1px solid #7f9db9;
+        background-color: #fff;
         padding: 10px;
         height: calc(100% - 160px);
         overflow-y: scroll;
@@ -172,14 +174,15 @@ img {
       }
 
       .input {
-        height: 30px;
-        padding: 10px;
+        padding-top: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
         input {
           width: 100%;
+          margin-right: 20px;
+          padding-bottom: 0;
           border: none;
           outline: none;
           color: #2f2d52;

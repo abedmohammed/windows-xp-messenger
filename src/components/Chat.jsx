@@ -12,11 +12,17 @@ const Chat = () => {
 
   return (
     <div className="chat">
-      <div className="chatInfo">
-        <span>{data.user?.displayName}</span>
-      </div>
-      <Messages />
-      <Input />
+      {data.user?.displayName ? (
+        <>
+          <div className="chatInfo">
+            <p>To: {data.user?.displayName}</p>
+          </div>
+          <Messages />
+          <Input />
+        </>
+      ) : (
+        "Please select a user"
+      )}
     </div>
   );
 };
