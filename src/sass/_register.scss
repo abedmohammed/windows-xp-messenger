@@ -1,0 +1,17 @@
+.register {
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__profile-pic {
+    margin: 0;
+  }
+
+  &__upload-image {
+    cursor: pointer;
+  }
+
+  &__submit {
+    margin: 6px 0 12px 0;
+  }
+}

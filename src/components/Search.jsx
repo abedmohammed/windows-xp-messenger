@@ -89,20 +89,24 @@ const Search = () => {
 
   return (
     <div className="search">
-      <div className="searchForm">
+      <div className="search__form">
         <input
           type="text"
           placeholder="Find a user"
           onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
+          className="search__input"
         />
       </div>
       {err && <span>Something went wrong!</span>}
       {user && (
-        <div className="userChat field-row" onClick={() => handleSelect(user)}>
+        <div
+          className="search__result field-row"
+          onClick={() => handleSelect(user)}
+        >
           <img src={user.photoURL} alt="" />
-          <div className="userChatInfo">
+          <div className="search__user">
             <p>{user.displayName}</p>
           </div>
         </div>

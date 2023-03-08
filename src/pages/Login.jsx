@@ -24,10 +24,10 @@ const Login = () => {
   };
 
   return (
-    <div className="window">
+    <div className="login window">
       <TitleBar />
       <div className="window-body">
-        <p className="logo">Login:</p>
+        <h2 className="login__title">Login:</h2>
         {err && (
           <div
             className="field-row"
@@ -43,7 +43,7 @@ const Login = () => {
 
           <button>Login</button>
         </form>
-        <p>
+        <p className="login__register">
           Don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>

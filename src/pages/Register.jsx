@@ -20,56 +20,29 @@ const Register = () => {
     const file = e.target[3].files[0];
 
     try {
-      // Authenticate user
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      // Create storage reference with user's display name
       const storageRef = ref(storage, displayName);
-
-      // Upload user's image
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      // Register three observers:
-      // 1. 'state_changed' observer, called any time the state changes
-      // 2. Error observer, called on failure
-      // 3. Completion observer, called on successful completion
-      uploadTask.on(
-        // "state_changed",
-        // (snapshot) => {
-        //   // Observe state change events such as progress, pause, and resume
-        //   // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        //   const progress =
-        //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //   console.log("Upload is " + progress + "% done");
-        //   switch (snapshot.state) {
-        //     case "paused":
-        //       console.log("Upload is paused");
-        //       break;
-        //     case "running":
-        //       console.log("Upload is running");
-        //       break;
-        //   }
-        // },
-        (error) => {
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "users", res.user.uid), {
-              uid: res.user.uid,
-              displayName,
-              email,
-              photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "userChats", res.user.uid), {});
-            navigate("/");
-          });
-        }
-      );
+      await uploadTask;
+
+      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+      await updateProfile(res.user, {
+        displayName,
+        photoURL: downloadURL,
+      });
+
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        displayName,
+        email,
+        photoURL: downloadURL,
+      });
+
+      await setDoc(doc(db, "userChats", res.user.uid), {});
+      navigate("/");
     } catch (err) {
       setErr(true);
       console.error(err);
@@ -77,10 +50,10 @@ const Register = () => {
   };
 
   return (
-    <div className="window">
+    <div className="register window">
       <TitleBar />
       <div className="window-body">
-        <p>Register:</p>
+        <h2 className="register__title">Register An Account:</h2>
         {err && (
           <div
             className="field-row"
@@ -91,21 +64,26 @@ const Register = () => {
           </div>
         )}
         <form className="field-row-stacked" onSubmit={handleSubmit}>
-          <input type="text" placeholder="display name" />
+          <input id="name" type="text" placeholder="username" />
+
           <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
-          <input
-            style={{ display: "none", width: "max-content" }}
-            type="file"
-            id="file"
-          />
-          <label className="field-row" htmlFor="file">
-            <img src={Add} alt="" />
-            <span>Add profile picture</span>
-          </label>
-          <button>Sign Up</button>
+
+          <input id="password" type="password" placeholder="password" />
+
+          <div className="register__profile-pic">
+            <input
+              style={{ display: "none", width: "max-content" }}
+              type="file"
+              id="file"
+            />
+            <label className="register__upload-image field-row" htmlFor="file">
+              <img src={Add} alt="" />
+              <span>Add profile picture</span>
+            </label>
+          </div>
+          <button className="register__submit">Sign Up</button>
         </form>
-        <p>
+        <p className="register__existing">
           You already have an account? <Link to="/login">Login</Link>
         </p>
       </div>

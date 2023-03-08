@@ -17,8 +17,9 @@ const Message = ({ message }) => {
       ref={ref}
       className={`message ${message.senderId === currentUser.uid && "owner"}`}
     >
-      <div className="messageInfo">
+      <div className="message__info">
         <img
+          className="message__profile-pic"
           src={
             message.senderId === currentUser.uid
               ? currentUser.photoURL
@@ -28,9 +29,11 @@ const Message = ({ message }) => {
         />
         <span>Just now</span>
       </div>
-      <div className="messageContent">
-        {message.text && <p>{message.text}</p>}
-        {message.img && <img src={message.img} alt="" />}
+      <div className="message__content">
+        {message.text && <p className="message__text">{message.text}</p>}
+        {message.img && (
+          <img className="message__image" src={message.img} alt="" />
+        )}
       </div>
     </div>
   );

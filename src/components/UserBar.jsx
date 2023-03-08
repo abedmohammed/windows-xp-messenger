@@ -9,9 +9,11 @@ const UserBar = () => {
   return (
     <div className="userbar">
       <div className="user field-row">
-        <img src={currentUser.photoURL} alt="" />
-        <p>{currentUser.displayName}</p>
-        <button onClick={() => signOut(auth)}>logout</button>
+        <img className="user__profile-pic" src={currentUser.photoURL} alt="" />
+        <p className="user__name">{currentUser.displayName}</p>
+        <button className="user__logout" onClick={() => signOut(auth)}>
+          logout
+        </button>
       </div>
     </div>
   );
