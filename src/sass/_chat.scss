@@ -14,6 +14,21 @@
     // background-color: #fff;
   }
 
+  .sender {
+    margin: 5px 0 10px 0;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__name {
+    }
+  }
+
   .messages {
     flex: 1;
     border: 1px solid #7f9db9;

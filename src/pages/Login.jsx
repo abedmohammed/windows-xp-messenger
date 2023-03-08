@@ -11,10 +11,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleErrorCancel = () => {
-    setError(false);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
@@ -32,14 +28,7 @@ const Login = () => {
   return (
     <div className="login window-body">
       <h2 className="login__title">Login:</h2>
-      {error && (
-        <Modal
-          title="Error"
-          modalMessage={error}
-          modalImage={Alert}
-          modalActions={[{ label: "Ok", handler: handleErrorCancel }]}
-        />
-      )}
+      {error && <Modal title="Error" modalMessage={error} modalImage={Alert} />}
       <form className="field-row" onSubmit={handleSubmit}>
         <input type="email" placeholder="email" />
         <input type="password" placeholder="password" />

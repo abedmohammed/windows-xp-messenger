@@ -10,11 +10,14 @@ import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import useQuerydb from "../hooks/use-querydb";
+import { ErrorContext } from "../context/ErrorContext";
+import Modal from "./Modal";
+import Warning from "../assets/images/warning.png";
 
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const [err, setErr] = useState(false);
+  const { error, setError } = useContext(ErrorContext);
 
   const { performQuery } = useQuerydb();
 
@@ -22,6 +25,7 @@ const Search = () => {
   const { dispatch } = useContext(ChatContext);
 
   const handleSearch = async () => {
+    let foundUser = false;
     try {
       await performQuery({
         dbCollection: "users",
@@ -30,11 +34,15 @@ const Search = () => {
         dbMatch: username,
         handleQuery: (doc) => {
           setUser(doc.data());
+          foundUser = true;
         },
       });
+
+      if (!foundUser)
+        throw new Error("No user found! Please enter a valid username.");
     } catch (err) {
+      setError(err.message);
       console.error(err);
-      setErr(err);
     }
   };
 
@@ -76,7 +84,7 @@ const Search = () => {
         });
       }
     } catch (err) {
-      setErr(err);
+      setError(err.message);
       console.error(err);
     }
 
@@ -98,15 +106,15 @@ const Search = () => {
           className="search__input"
         />
       </div>
-      {err && <span>Something went wrong!</span>}
+      {error && (
+        <Modal title="Error" modalMessage={error} modalImage={Warning} />
+      )}
       {user && (
-        <div
-          className="search__result field-row"
-          onClick={() => handleSelect(user)}
-        >
+        <div className="search__result" onClick={() => handleSelect(user)}>
           <img src={user.photoURL} alt="" />
           <div className="search__user">
-            <p>{user.displayName}</p>
+            <p className="search__name">{user.displayName}</p>
+            <p className="search__email">{`<${user.email}>`}</p>
           </div>
         </div>
       )}

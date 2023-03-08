@@ -1,8 +1,18 @@
+import { useContext } from "react";
 import ReactDOM from "react-dom";
 
 import Draggable from "react-draggable";
+import { ErrorContext } from "../context/ErrorContext";
 
 const Modal = ({ title, modalImage, modalMessage, modalActions }) => {
+  const { setError } = useContext(ErrorContext);
+
+  const handleErrorCancel = () => {
+    setError(false);
+  };
+
+  modalActions ||= [{ label: "Ok", handler: handleErrorCancel }];
+
   return ReactDOM.createPortal(
     <>
       <div className="overlay"></div>

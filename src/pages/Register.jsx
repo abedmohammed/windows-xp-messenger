@@ -25,10 +25,6 @@ const Register = () => {
     setFileName(e.target.files[0].name);
   };
 
-  const handleErrorCancel = () => {
-    setError(false);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const displayName = e.target[0].value.trim();
@@ -103,14 +99,7 @@ const Register = () => {
   return (
     <div className="register window-body">
       <h2 className="register__title">Register An Account:</h2>
-      {error && (
-        <Modal
-          title="Error"
-          modalMessage={error}
-          modalImage={Alert}
-          modalActions={[{ label: "Ok", handler: handleErrorCancel }]}
-        />
-      )}
+      {error && <Modal title="Error" modalMessage={error} modalImage={Alert} />}
       <form className="field-row-stacked" onSubmit={handleSubmit}>
         <input id="name" type="text" placeholder="username" />
 
