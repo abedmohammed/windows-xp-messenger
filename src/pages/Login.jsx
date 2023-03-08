@@ -24,29 +24,26 @@ const Login = () => {
   };
 
   return (
-    <div className="login window">
-      <TitleBar />
-      <div className="window-body">
-        <h2 className="login__title">Login:</h2>
-        {err && (
-          <div
-            className="field-row"
-            style={{ marginTop: "10px", marginBottom: "5px" }}
-          >
-            <img src={Warning} alt="" style={{ width: "25px" }} />
-            <span>Something went wrong</span>
-          </div>
-        )}
-        <form className="field-row" onSubmit={handleSubmit}>
-          <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
+    <div className="login window-body">
+      <h2 className="login__title">Login:</h2>
+      {err && (
+        <div
+          className="field-row"
+          style={{ marginTop: "10px", marginBottom: "5px" }}
+        >
+          <img src={Warning} alt="" style={{ width: "25px" }} />
+          <span>Something went wrong</span>
+        </div>
+      )}
+      <form className="field-row" onSubmit={handleSubmit}>
+        <input type="email" placeholder="email" />
+        <input type="password" placeholder="password" />
 
-          <button>Login</button>
-        </form>
-        <p className="login__register">
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
-      </div>
+        <button>Login</button>
+      </form>
+      <p className="login__register">
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
     </div>
   );
 };

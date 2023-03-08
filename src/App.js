@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+import RootLayout from "./pages/RootLayout";
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
+        <Route path="/" element={<RootLayout />}>
           <Route
             index
             element={

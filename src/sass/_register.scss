@@ -11,6 +11,11 @@
     cursor: pointer;
   }
 
+  &__attached {
+    word-wrap: break-word;
+    margin: 0 10px 10px 10px;
+  }
+
   &__submit {
     margin: 6px 0 12px 0;
   }

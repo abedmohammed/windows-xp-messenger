@@ -6,12 +6,9 @@ import TitleBar from "../components/TitleBar";
 
 const Home = () => {
   return (
-    <div className="home window">
-      <TitleBar />
-      <div className="container window-body">
-        <Sidebar />
-        <Chat />
-      </div>
+    <div className="container window-body">
+      <Sidebar />
+      <Chat />
     </div>
   );
 };
