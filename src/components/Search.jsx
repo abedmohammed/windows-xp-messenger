@@ -1,9 +1,5 @@
 import React, { useContext, useState } from "react";
 import {
-  collection,
-  query,
-  where,
-  getDocs,
   getDoc,
   setDoc,
   updateDoc,
@@ -13,25 +9,28 @@ import {
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import useQuerydb from "../hooks/use-querydb";
 
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
 
+  const { performQuery } = useQuerydb();
+
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
   const handleSearch = async () => {
-    const q = query(
-      collection(db, "users"),
-      where("displayName", "==", username)
-    );
-
     try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
+      await performQuery({
+        dbCollection: "users",
+        dbField: "displayName",
+        dbOperator: "==",
+        dbMatch: username,
+        handleQuery: (doc) => {
+          setUser(doc.data());
+        },
       });
     } catch (err) {
       console.error(err);
