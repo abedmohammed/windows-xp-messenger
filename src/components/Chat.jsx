@@ -16,7 +16,7 @@ const Chat = () => {
           <Input />
         </>
       ) : (
-        "Please select a user"
+        <p className="chat__no-sender">No user selected</p>
       )}
     </div>
   );

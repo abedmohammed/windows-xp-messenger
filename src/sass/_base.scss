@@ -36,11 +36,15 @@ button {
   font-size: 12px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   gap: 10px;
-  width: 800px;
-  height: 700px;
+  width: 700px;
+  height: 600px;
 }
 
 .window {

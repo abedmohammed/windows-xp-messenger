@@ -8,12 +8,15 @@ const UserBar = () => {
 
   return (
     <div className="userbar">
-      <div className="user field-row">
+      <div className="user">
         <img className="user__profile-pic" src={currentUser.photoURL} alt="" />
-        <p className="user__name">{currentUser.displayName}</p>
-        <button className="user__logout" onClick={() => signOut(auth)}>
-          logout
-        </button>
+        <div className="user__details">
+          <p className="user__name">{currentUser.displayName}</p>
+          <p className="user__email">{`<${currentUser.email}>`}</p>
+          <button className="user__logout" onClick={() => signOut(auth)}>
+            logout
+          </button>
+        </div>
       </div>
     </div>
   );

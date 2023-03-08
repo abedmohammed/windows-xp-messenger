@@ -34,7 +34,7 @@ const Chats = () => {
         ?.sort((a, b) => b[1].date - a[1].date)
         .map((chat) => (
           <div
-            className="field-row"
+            className="chats__friend"
             key={chat[0]}
             onClick={() => handleSelect(chat[1].userInfo)}
           >
@@ -47,9 +47,9 @@ const Chats = () => {
               <p className="chat-preview__name">
                 {chat[1].userInfo.displayName}
               </p>
-              <span className="chat-preview__latest">
+              <p className="chat-preview__latest">
                 {chat[1].lastMessage?.text}
-              </span>
+              </p>
             </div>
           </div>
         ))}
