@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Add from "../assets/images/addAvatar.ico";
 import Warning from "../assets/images/warning.png";
 import Alert from "../assets/images/alert.png";
@@ -7,12 +7,12 @@ import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
-import TitleBar from "../components/TitleBar";
 import useQuerydb from "../hooks/use-querydb";
 import Modal from "../components/Modal";
+import { ErrorContext } from "../context/ErrorContext";
 
 const Register = () => {
-  const [err, setErr] = useState(false);
+  const { error, setError } = useContext(ErrorContext);
   const [fileName, setFileName] = useState();
   const [passwordInput, setPasswordInput] = useState("");
   const { performQuery } = useQuerydb();
@@ -27,7 +27,7 @@ const Register = () => {
   };
 
   const handleErrorCancel = () => {
-    setErr(false);
+    setError(false);
   };
 
   const handleSubmit = async (e) => {
@@ -96,7 +96,7 @@ const Register = () => {
       await setDoc(doc(db, "userChats", res.user.uid), {});
       navigate("/");
     } catch (err) {
-      setErr(err.message.replace("Error: ", ""));
+      setError(err.message.replace("Error: ", ""));
       console.error(err);
     }
   };
@@ -104,10 +104,10 @@ const Register = () => {
   return (
     <div className="register window-body">
       <h2 className="register__title">Register An Account:</h2>
-      {err && (
+      {error && (
         <Modal
           title="Error"
-          modalMessage={err}
+          modalMessage={error}
           modalImage={Alert}
           modalActions={[{ label: "Ok", handler: handleErrorCancel }]}
         />
