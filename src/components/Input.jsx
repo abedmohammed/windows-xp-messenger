@@ -13,16 +13,26 @@ import {
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { ErrorContext } from "../context/ErrorContext";
+import Attached from "../assets/images/attached.ico";
+import Modal from "./Modal";
 
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
+  const { error, setError } = useContext(ErrorContext);
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   const handleSend = async (e) => {
     e.preventDefault();
+
+    if (!img && !text) {
+      setError("Please enter a message or a photo");
+      return;
+    }
+
     if (img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
@@ -72,26 +82,37 @@ const Input = () => {
   };
 
   return (
-    <form onSubmit={handleSend} className="input">
-      <input
-        type="text"
-        placeholder="Type something..."
-        onChange={(e) => setText(e.target.value)}
-        value={text}
-      />
-      <div className="send">
+    <>
+      {img && (
+        <div className="input__attached">
+          <img src={Attached} alt="" />
+          <p>{img.name}</p>
+        </div>
+      )}
+      <form onSubmit={handleSend} className="input">
+        <input
+          className="input__text"
+          type="text"
+          placeholder="Type something..."
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+        />
+
         <input
           type="file"
           style={{ display: "none" }}
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
+          accept="image/*, image/*, image/*"
         />
-        <label htmlFor="file">
+        <label htmlFor="file" className="input__image">
           <img src={Img} alt="" />
         </label>
-        <button type="submit">Send</button>
-      </div>
-    </form>
+        <div className="input__send">
+          <button type="submit">Send</button>
+        </div>
+      </form>
+    </>
   );
 };
 

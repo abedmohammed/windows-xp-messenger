@@ -11,13 +11,11 @@ import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import useQuerydb from "../hooks/use-querydb";
 import { ErrorContext } from "../context/ErrorContext";
-import Modal from "./Modal";
-import Warning from "../assets/images/warning.png";
 
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const { error, setError } = useContext(ErrorContext);
+  const { setError } = useContext(ErrorContext);
 
   const { performQuery } = useQuerydb();
 
@@ -106,9 +104,6 @@ const Search = () => {
           className="search__input"
         />
       </div>
-      {error && (
-        <Modal title="Error" modalMessage={error} modalImage={Warning} />
-      )}
       {user && (
         <div className="search__result" onClick={() => handleSelect(user)}>
           <img src={user.photoURL} alt="" />
