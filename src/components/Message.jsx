@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+
+TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo("en-US");
 
 const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
@@ -27,7 +32,9 @@ const Message = ({ message }) => {
           }
           alt=""
         />
-        <span>Just now</span>
+        <span className="message__time">
+          {timeAgo.format(new Date(message.date.seconds * 1000))}
+        </span>
       </div>
       <div className="message__content">
         {message.text && <p className="message__text">{message.text}</p>}

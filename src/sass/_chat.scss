@@ -10,8 +10,6 @@
     display: grid;
     place-content: center;
     font-size: 16px;
-    // border: 1px solid #7f9db9;
-    // background-color: #fff;
   }
 
   .sender {
@@ -39,14 +37,19 @@
 
     .message {
       display: flex;
-      gap: 20px;
+      align-items: flex-end;
+      gap: 10px;
       margin-bottom: 20px;
 
       &__info {
         display: flex;
         flex-direction: column;
-        color: gray;
         font-weight: 300;
+      }
+
+      &__time {
+        color: gray;
+        margin-top: 5px;
       }
 
       &__profile-pic {
@@ -60,10 +63,11 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        margin-bottom: 20px;
       }
 
       &__text {
-        background-color: white;
+        background-color: #d3e5fa;
         padding: 10px 20px;
         max-width: max-content;
       }
@@ -80,7 +84,7 @@
         }
 
         .message__text {
-          background-color: #8da4f1;
+          background-color: #0058f4;
           color: white;
         }
       }
