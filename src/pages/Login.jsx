@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import TitleBar from "../components/TitleBar";
-import Warning from "../assets/images/warning.png";
+import Alert from "../assets/images/alert.png";
+import { ErrorContext } from "../context/ErrorContext";
+import Modal from "../components/Modal";
 
 const Login = () => {
-  const [err, setErr] = useState(false);
+  const { error, setError } = useContext(ErrorContext);
+
   const navigate = useNavigate();
+
+  const handleErrorCancel = () => {
+    setError(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,21 +25,20 @@ const Login = () => {
       navigate("/");
     } catch (err) {
       console.error(err);
-      setErr(true);
+      setError("Invalid credentials, please try again.");
     }
   };
 
   return (
     <div className="login window-body">
       <h2 className="login__title">Login:</h2>
-      {err && (
-        <div
-          className="field-row"
-          style={{ marginTop: "10px", marginBottom: "5px" }}
-        >
-          <img src={Warning} alt="" style={{ width: "25px" }} />
-          <span>Something went wrong</span>
-        </div>
+      {error && (
+        <Modal
+          title="Error"
+          modalMessage={error}
+          modalImage={Alert}
+          modalActions={[{ label: "Ok", handler: handleErrorCancel }]}
+        />
       )}
       <form className="field-row" onSubmit={handleSubmit}>
         <input type="email" placeholder="email" />

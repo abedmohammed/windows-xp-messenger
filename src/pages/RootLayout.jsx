@@ -15,7 +15,7 @@ const RootLayout = () => {
   }, [location]);
 
   return (
-    <Draggable handle=".title-bar" ref={draggerRef} disabled={error}>
+    <Draggable handle=".title-bar" ref={draggerRef} disabled={error && true}>
       <div className="window">
         <TitleBar />
         <Outlet />

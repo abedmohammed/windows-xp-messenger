@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-import { act } from "react-dom/test-utils";
 
 import Draggable from "react-draggable";
 
@@ -7,7 +6,7 @@ const Modal = ({ title, modalImage, modalMessage, modalActions }) => {
   return ReactDOM.createPortal(
     <>
       <div className="overlay"></div>
-      <Draggable handle=".title-bar">
+      <Draggable handle=".title-bar" positionOffset={{ x: "-50%", y: "-50%" }}>
         <div className="modal window">
           <div className="title-bar">
             <div className="title-bar-text">

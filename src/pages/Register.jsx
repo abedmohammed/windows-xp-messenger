@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import Add from "../assets/images/addAvatar.ico";
-import Warning from "../assets/images/warning.png";
 import Alert from "../assets/images/alert.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
