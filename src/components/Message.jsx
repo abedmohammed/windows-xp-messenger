@@ -21,26 +21,28 @@ const Message = ({ message }) => {
     <div
       className={`message ${message.senderId === currentUser.uid && "owner"}`}
     >
-      <div className="message__info">
-        <img
-          className="message__profile-pic"
-          src={
-            message.senderId === currentUser.uid
-              ? currentUser.photoURL
-              : data.user.photoURL
-          }
-          alt=""
-        />
-        <span className="message__time">
-          {timeAgo.format(new Date(message.date.seconds * 1000))}
-        </span>
+      <div className="message__row">
+        <div className="message__info">
+          <img
+            className="message__profile-pic"
+            src={
+              message.senderId === currentUser.uid
+                ? currentUser.photoURL
+                : data.user.photoURL
+            }
+            alt=""
+          />
+        </div>
+        <div className="message__content">
+          {message.text && <p className="message__text">{message.text}</p>}
+          {message.img && (
+            <img className="message__image" src={message.img} alt="" />
+          )}
+        </div>
       </div>
-      <div className="message__content">
-        {message.text && <p className="message__text">{message.text}</p>}
-        {message.img && (
-          <img className="message__image" src={message.img} alt="" />
-        )}
-      </div>
+      <p className="message__time">
+        {timeAgo.format(new Date(message.date.seconds * 1000))}
+      </p>
       <div className="message__bottom" ref={ref}></div>
     </div>
   );
