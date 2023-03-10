@@ -112,7 +112,6 @@ const Search = () => {
           <img src={user.photoURL} alt="" />
           <div className="search__user">
             <p className="search__name">{user.displayName}</p>
-            <p className="search__email">{`<${user.email}>`}</p>
           </div>
         </div>
       )}

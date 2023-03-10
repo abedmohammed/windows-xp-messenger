@@ -37,8 +37,8 @@ const Register = () => {
       if (!displayName) throw new Error("Username cannot be empty.");
 
       await performQuery({
-        dbCollection: "users",
-        dbField: "displayName",
+        dbCollection: "userNames",
+        dbField: "userName",
         dbOperator: "==",
         dbMatch: displayName,
         handleQuery: () => {
@@ -47,16 +47,6 @@ const Register = () => {
       });
 
       if (!email) throw new Error("Email cannot be empty");
-
-      await performQuery({
-        dbCollection: "users",
-        dbField: "email",
-        dbOperator: "==",
-        dbMatch: email,
-        handleQuery: () => {
-          throw new Error("This email is already in use.");
-        },
-      });
 
       if (!password) throw new Error("Password cannot be empty");
       if (password.length < 6)
@@ -93,8 +83,11 @@ const Register = () => {
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         displayName,
-        email,
         photoURL: downloadURL,
+      });
+
+      await setDoc(doc(db, "userNames", res.user.uid), {
+        userName: displayName,
       });
 
       setLoading({ value: 100, message: "finalizing account creation" });
@@ -105,7 +98,13 @@ const Register = () => {
       navigate("/");
     } catch (err) {
       setLoading(false);
-      setError(err.message.replace("Error: ", ""));
+
+      if (err.message === "Firebase: Error (auth/email-already-in-use).") {
+        setError("This email is already in use.");
+      } else {
+        setError(err.message.replace("Error: ", ""));
+      }
+
       console.error(err);
     }
   };
