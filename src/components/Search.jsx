@@ -36,8 +36,11 @@ const Search = () => {
         },
       });
 
-      if (!foundUser)
+      if (!foundUser) {
+        setUser(null);
+        setUsername("");
         throw new Error("No user found! Please enter a valid username.");
+      }
     } catch (err) {
       setError(err.message);
       console.error(err);

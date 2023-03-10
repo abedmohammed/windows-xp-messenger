@@ -20,8 +20,8 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (err) {
-      console.error(err);
       setError("Invalid credentials, please try again.");
+      console.error(err);
     }
   };
 

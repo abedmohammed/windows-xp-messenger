@@ -11,7 +11,7 @@ import Modal from "../components/Modal";
 import { ErrorContext } from "../context/ErrorContext";
 
 const Register = () => {
-  const { error, setError } = useContext(ErrorContext);
+  const { error, setError, loading, setLoading } = useContext(ErrorContext);
   const [fileName, setFileName] = useState();
   const [passwordInput, setPasswordInput] = useState("");
   const { performQuery } = useQuerydb();
@@ -33,6 +33,7 @@ const Register = () => {
     const file = e.target[3].files[0];
 
     try {
+      setLoading({ value: 10, message: "validating user details" });
       if (!displayName) throw new Error("Username cannot be empty.");
 
       await performQuery({
@@ -67,12 +68,18 @@ const Register = () => {
         throw new Error("Image size is too big! Maximum: 1MB");
       }
 
+      setLoading({ value: 20, message: "authenticating account" });
+
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
       const storageRef = ref(storage, displayName);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
+      setLoading({ value: 40, message: "uploading image" });
+
       await uploadTask;
+
+      setLoading({ value: 60, message: "adding to list of users" });
 
       const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
@@ -81,6 +88,8 @@ const Register = () => {
         photoURL: downloadURL,
       });
 
+      setLoading({ value: 80, message: "creating account details" });
+
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         displayName,
@@ -88,9 +97,14 @@ const Register = () => {
         photoURL: downloadURL,
       });
 
+      setLoading({ value: 100, message: "finalizing account creation" });
+
       await setDoc(doc(db, "userChats", res.user.uid), {});
+
+      setLoading(false);
       navigate("/");
     } catch (err) {
+      setLoading(false);
       setError(err.message.replace("Error: ", ""));
       console.error(err);
     }
@@ -100,6 +114,7 @@ const Register = () => {
     <div className="register window-body">
       <h2 className="register__title">Register An Account:</h2>
       {error && <Modal title="Error" modalMessage={error} modalImage={Alert} />}
+      {loading && <Modal modalControls={false} title="Registering" />}
       <form className="field-row-stacked" onSubmit={handleSubmit}>
         <input id="name" type="text" placeholder="username" />
 

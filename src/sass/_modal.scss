@@ -19,7 +19,7 @@
   top: 50%;
   left: 50%;
 
-  height: 150px;
+  min-height: 150px;
 
   transform: translate(-50%, -50%);
 
@@ -53,5 +53,22 @@
     display: flex;
     justify-content: center;
     gap: 10px;
+  }
+}
+
+.loading {
+  min-width: 260px;
+  &__image {
+    margin-top: -20px;
+    margin-bottom: 15px;
+  }
+
+  &__message {
+    margin-bottom: 10px;
+  }
+
+  &__loader {
+    width: 100%;
+    flex-basis: 18px;
   }
 }

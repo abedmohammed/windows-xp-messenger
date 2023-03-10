@@ -3,9 +3,17 @@ import ReactDOM from "react-dom";
 
 import Draggable from "react-draggable";
 import { ErrorContext } from "../context/ErrorContext";
+import ErrorModal from "./ErrorModal";
+import LoadingModal from "./LoadingModal";
 
-const Modal = ({ title, modalImage, modalMessage, modalActions }) => {
-  const { setError } = useContext(ErrorContext);
+const Modal = ({
+  title,
+  modalImage,
+  modalMessage,
+  modalActions,
+  modalControls = true,
+}) => {
+  const { error, setError, loading } = useContext(ErrorContext);
 
   const handleErrorCancel = () => {
     setError(false);
@@ -23,21 +31,22 @@ const Modal = ({ title, modalImage, modalMessage, modalActions }) => {
               <h1>{title}</h1>
             </div>
             <div className="title-bar-controls">
-              <button aria-label="Close" onClick={modalActions[0].handler} />
+              {modalControls && (
+                <button aria-label="Close" onClick={modalActions[0].handler} />
+              )}
             </div>
           </div>
           <div className="window-body modal__content">
-            <div className="modal__info">
-              <img className="modal__image" src={modalImage} alt="" />
-              <span className="modal__message">{modalMessage}</span>
-            </div>
-            <div className="modal__actions">
-              {modalActions.map((action) => (
-                <button key={action.label} onClick={action.handler}>
-                  {action.label}
-                </button>
-              ))}
-            </div>
+            {error && (
+              <ErrorModal
+                modalImage={modalImage}
+                modalMessage={modalMessage}
+                modalActions={modalActions}
+              />
+            )}
+            {loading && (
+              <LoadingModal percent={loading.value} message={loading.message} />
+            )}
           </div>
         </div>
       </Draggable>

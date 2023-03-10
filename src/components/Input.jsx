@@ -20,7 +20,7 @@ import Modal from "./Modal";
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-  const { error, setError } = useContext(ErrorContext);
+  const { setError, loading, setLoading } = useContext(ErrorContext);
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
@@ -33,49 +33,59 @@ const Input = () => {
       return;
     }
 
-    if (img) {
-      const storageRef = ref(storage, uuid());
-      const uploadTask = uploadBytesResumable(storageRef, img);
+    try {
+      if (img) {
+        setLoading({ value: 10, message: "uploading image" });
+        const storageRef = ref(storage, uuid());
+        const uploadTask = uploadBytesResumable(storageRef, img);
 
-      await uploadTask;
+        setLoading({ value: 30, message: "uploading image" });
+        await uploadTask;
 
-      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-      await updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: uuid(),
+        setLoading({ value: 60, message: "uploading image" });
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+            img: downloadURL,
+          }),
+        });
+        setLoading(false);
+      } else {
+        // Update collective chat for both users with new message
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+          }),
+        });
+      }
+
+      // Update last message for both users
+      await updateDoc(doc(db, "userChats", currentUser.uid), {
+        [data.chatId + ".lastMessage"]: {
           text,
-          senderId: currentUser.uid,
-          date: Timestamp.now(),
-          img: downloadURL,
-        }),
+        },
+        [data.chatId + ".date"]: serverTimestamp(),
       });
-    } else {
-      // Update collective chat for both users with new message
-      await updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: uuid(),
+
+      await updateDoc(doc(db, "userChats", data.user.uid), {
+        [data.chatId + ".lastMessage"]: {
           text,
-          senderId: currentUser.uid,
-          date: Timestamp.now(),
-        }),
+        },
+        [data.chatId + ".date"]: serverTimestamp(),
       });
+    } catch (err) {
+      setLoading(false);
+      setError(err.message.replace("Error: ", ""));
+      console.error(err);
     }
-
-    // Update last message for both users
-    await updateDoc(doc(db, "userChats", currentUser.uid), {
-      [data.chatId + ".lastMessage"]: {
-        text,
-      },
-      [data.chatId + ".date"]: serverTimestamp(),
-    });
-
-    await updateDoc(doc(db, "userChats", data.user.uid), {
-      [data.chatId + ".lastMessage"]: {
-        text,
-      },
-      [data.chatId + ".date"]: serverTimestamp(),
-    });
 
     setText("");
     setImg(null);
@@ -83,6 +93,7 @@ const Input = () => {
 
   return (
     <>
+      {loading && <Modal modalControls={false} title="Uploading" />}
       {img && (
         <div className="input__attached">
           <img src={Attached} alt="" />
