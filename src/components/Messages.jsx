@@ -20,11 +20,13 @@ const Messages = () => {
   }, [data.chatId]);
 
   return (
-    <div className="messages">
-      {messages?.map((m) => (
-        <Message message={m} key={m.id} />
-      ))}
-    </div>
+    <>
+      <div className="messages">
+        {messages?.map((m) => (
+          <Message message={m} key={m.id} />
+        ))}
+      </div>
+    </>
   );
 };
 

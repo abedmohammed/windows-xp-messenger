@@ -35,16 +35,16 @@ const Input = () => {
 
     try {
       if (img) {
-        setLoading({ value: 10, message: "uploading image" });
+        setLoading({ value: 10, message: "uploading image", type: "input" });
         const storageRef = ref(storage, uuid());
         const uploadTask = uploadBytesResumable(storageRef, img);
 
-        setLoading({ value: 30, message: "uploading image" });
+        setLoading({ value: 30, message: "uploading image", type: "input" });
         await uploadTask;
 
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-        setLoading({ value: 60, message: "uploading image" });
+        setLoading({ value: 60, message: "uploading image", type: "input" });
         await updateDoc(doc(db, "chats", data.chatId), {
           messages: arrayUnion({
             id: uuid(),
@@ -93,7 +93,9 @@ const Input = () => {
 
   return (
     <>
-      {loading && <Modal modalControls={false} title="Uploading" />}
+      {loading.type === "input" && (
+        <Modal modalControls={false} title="Uploading" />
+      )}
       {img && (
         <div className="input__attached">
           <img src={Attached} alt="" />
