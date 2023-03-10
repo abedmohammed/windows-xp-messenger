@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import TimeAgo from "javascript-time-ago";
@@ -9,20 +9,13 @@ const timeAgo = new TimeAgo("en-US");
 
 const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
-  const [imgLoaded, setImgLoaded] = useState(message.img || false);
   const { data } = useContext(ChatContext);
 
   const ref = useRef();
 
   useEffect(() => {
-    if (!imgLoaded) {
-      ref.current?.scrollIntoView({ behavior: "smooth" });
-    }
-
-    if (imgLoaded === "loaded") {
-      ref.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [message, imgLoaded]);
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
 
   return (
     <div
@@ -43,12 +36,7 @@ const Message = ({ message }) => {
         <div className="message__content">
           {message.text && <p className="message__text">{message.text}</p>}
           {message.img && (
-            <img
-              onLoad={() => setImgLoaded("loaded")}
-              className="message__image"
-              src={message.img}
-              alt=""
-            />
+            <img className="message__image" src={message.img} alt="" />
           )}
         </div>
       </div>
