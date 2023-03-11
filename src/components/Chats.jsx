@@ -6,12 +6,13 @@ import { db } from "../firebase";
 
 const Chats = () => {
   const [chats, setChats] = useState([]);
+  const [sortedChats, setSortedChats] = useState([]);
 
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
   useEffect(() => {
-    const getChats = () => {
+    const getChats = async () => {
       const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
         setChats(doc.data());
       });
@@ -24,35 +25,45 @@ const Chats = () => {
     currentUser.uid && getChats();
   }, [currentUser.uid]);
 
+  useEffect(() => {
+    setSortedChats((prevState) => {
+      let notReady = false;
+      Object.entries(chats).forEach((chat) => {
+        if (!chat[1].date) notReady = true;
+      });
+
+      if (notReady) return prevState;
+
+      return Object.entries(chats)?.sort((a, b) => {
+        return b[1].date - a[1].date;
+      });
+    });
+    console.log("sorted");
+  }, [chats]);
+
   const handleSelect = (u) => {
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 
   return (
     <div className="chats">
-      {Object.entries(chats)
-        ?.sort((a, b) => b[1].date - a[1].date)
-        .map((chat) => (
-          <div
-            className="chats__friend"
-            key={chat[0]}
-            onClick={() => handleSelect(chat[1].userInfo)}
-          >
-            <img
-              className="chats__profile-pic"
-              src={chat[1].userInfo.photoURL}
-              alt=""
-            />
-            <div className="chat-preview">
-              <p className="chat-preview__name">
-                {chat[1].userInfo.displayName}
-              </p>
-              <p className="chat-preview__latest">
-                {chat[1].lastMessage?.text}
-              </p>
-            </div>
+      {sortedChats.map((chat) => (
+        <div
+          className="chats__friend"
+          key={chat[0]}
+          onClick={() => handleSelect(chat[1].userInfo)}
+        >
+          <img
+            className="chats__profile-pic"
+            src={chat[1].userInfo.photoURL}
+            alt=""
+          />
+          <div className="chat-preview">
+            <p className="chat-preview__name">{chat[1].userInfo.displayName}</p>
+            <p className="chat-preview__latest">{chat[1].lastMessage?.text}</p>
           </div>
-        ))}
+        </div>
+      ))}
     </div>
   );
 };
