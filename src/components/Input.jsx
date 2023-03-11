@@ -15,12 +15,11 @@ import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { ErrorContext } from "../context/ErrorContext";
 import Attached from "../assets/images/attached.ico";
-import Modal from "./Modal";
 
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-  const { setError, loading, setLoading } = useContext(ErrorContext);
+  const { setError, setLoading } = useContext(ErrorContext);
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
@@ -93,9 +92,6 @@ const Input = () => {
 
   return (
     <>
-      {loading.type === "input" && (
-        <Modal modalControls={false} title="Uploading" />
-      )}
       {img && (
         <div className="input__attached">
           <img src={Attached} alt="" />

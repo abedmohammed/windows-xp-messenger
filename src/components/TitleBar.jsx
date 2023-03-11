@@ -1,15 +1,13 @@
 import React from "react";
 
-const TitleBar = ({ title }) => {
+const TitleBar = ({ title, closeHandler }) => {
   return (
     <div className="title-bar">
       <div className="title-bar-text">
         <h1>{title || "Windows XP Messenger"}</h1>
       </div>
       <div className="title-bar-controls">
-        {/* <button aria-label="Minimize" />
-        <button aria-label="Maximize" />
-        <button aria-label="Close" /> */}
+        {closeHandler && <button aria-label="Close" onClick={closeHandler} />}
       </div>
     </div>
   );

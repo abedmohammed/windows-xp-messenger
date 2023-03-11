@@ -10,7 +10,7 @@ const UserBar = () => {
 
   const logoutUser = () => {
     signOut(auth);
-    dispatch({ type: "LOGOUT_USER" });
+    dispatch({ type: "REMOVE_USER" });
   };
 
   return (

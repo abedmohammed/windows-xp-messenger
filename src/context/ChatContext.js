@@ -21,7 +21,7 @@ export const ChatContextProvider = ({ children }) => {
               ? currentUser.uid + action.payload.uid
               : action.payload.uid + currentUser.uid,
         };
-      case "LOGOUT_USER":
+      case "REMOVE_USER":
         return INITIAL_STATE;
 
       default:

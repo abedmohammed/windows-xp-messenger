@@ -5,6 +5,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Alert from "../assets/images/alert.png";
 import { ErrorContext } from "../context/ErrorContext";
 import Modal from "../components/Modal";
+import TitleBar from "../components/TitleBar";
+import Draggable from "react-draggable";
 
 const Login = () => {
   const { error, setError } = useContext(ErrorContext);
@@ -26,19 +28,27 @@ const Login = () => {
   };
 
   return (
-    <div className="login window-body">
-      <h2 className="login__title">Login:</h2>
+    <>
       {error && <Modal title="Error" modalMessage={error} modalImage={Alert} />}
-      <form className="field-row" onSubmit={handleSubmit}>
-        <input type="email" placeholder="email" />
-        <input type="password" placeholder="password" />
+      <Draggable handle=".title-bar" positionOffset={{ x: "-50%", y: "-50%" }}>
+        <div className="window">
+          <TitleBar />
+          <div className="login window-body">
+            <h2 className="login__title">Login:</h2>
 
-        <button>Login</button>
-      </form>
-      <p className="login__register">
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
-    </div>
+            <form className="field-row" onSubmit={handleSubmit}>
+              <input type="email" placeholder="email" />
+              <input type="password" placeholder="password" />
+
+              <button>Login</button>
+            </form>
+            <p className="login__register">
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
+          </div>
+        </div>
+      </Draggable>
+    </>
   );
 };
 

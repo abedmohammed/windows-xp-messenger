@@ -9,6 +9,8 @@ import { useNavigate, Link } from "react-router-dom";
 import useQuerydb from "../hooks/use-querydb";
 import Modal from "../components/Modal";
 import { ErrorContext } from "../context/ErrorContext";
+import Draggable from "react-draggable";
+import TitleBar from "../components/TitleBar";
 
 const Register = () => {
   const { error, setError, loading, setLoading } = useContext(ErrorContext);
@@ -110,43 +112,56 @@ const Register = () => {
   };
 
   return (
-    <div className="register window-body">
-      <h2 className="register__title">Register An Account:</h2>
+    <>
       {error && <Modal title="Error" modalMessage={error} modalImage={Alert} />}
       {loading && <Modal modalControls={false} title="Registering" />}
-      <form className="field-row-stacked" onSubmit={handleSubmit}>
-        <input id="name" type="text" placeholder="username" />
+      <Draggable handle=".title-bar" positionOffset={{ x: "-50%", y: "-50%" }}>
+        <div className="window">
+          <TitleBar />
+          <div className="register window-body">
+            <h2 className="register__title">Register An Account:</h2>
 
-        <input type="email" placeholder="email" />
+            <form className="field-row-stacked" onSubmit={handleSubmit}>
+              <input id="name" type="text" placeholder="username" />
 
-        <input
-          onChange={handlePasswordInput}
-          value={passwordInput}
-          id="password"
-          type="password"
-          placeholder="password"
-        />
+              <input type="email" placeholder="email" />
 
-        <div className="register__profile-pic">
-          <input
-            style={{ display: "none", width: "max-content" }}
-            type="file"
-            id="file"
-            onChange={handleChooseImage}
-            accept="image/*, image/*, image/*"
-          />
-          <label className="register__upload-image field-row" htmlFor="file">
-            <img src={Add} alt="" />
-            <span>Add profile picture</span>
-          </label>
-          {fileName && <div className="register__attached">{fileName}</div>}
+              <input
+                onChange={handlePasswordInput}
+                value={passwordInput}
+                id="password"
+                type="password"
+                placeholder="password"
+              />
+
+              <div className="register__profile-pic">
+                <input
+                  style={{ display: "none", width: "max-content" }}
+                  type="file"
+                  id="file"
+                  onChange={handleChooseImage}
+                  accept="image/*, image/*, image/*"
+                />
+                <label
+                  className="register__upload-image field-row"
+                  htmlFor="file"
+                >
+                  <img src={Add} alt="" />
+                  <span>Add profile picture</span>
+                </label>
+                {fileName && (
+                  <div className="register__attached">{fileName}</div>
+                )}
+              </div>
+              <button className="register__submit">Sign Up</button>
+            </form>
+            <p className="register__existing">
+              You already have an account? <Link to="/login">Login</Link>
+            </p>
+          </div>
         </div>
-        <button className="register__submit">Sign Up</button>
-      </form>
-      <p className="register__existing">
-        You already have an account? <Link to="/login">Login</Link>
-      </p>
-    </div>
+      </Draggable>
+    </>
   );
 };
 

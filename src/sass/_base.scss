@@ -42,14 +42,16 @@ button {
   cursor: pointer;
 }
 
-.container {
+.window-container {
   display: flex;
-  gap: 10px;
-  width: 700px;
-  height: 600px;
 }
 
 .window {
   font-size: 12px;
-  // font-family: "Pixelated MS Sans Serif", Arial;
+
+  height: fit-content;
+  width: fit-content;
+
+  position: absolute;
+  z-index: 0;
 }

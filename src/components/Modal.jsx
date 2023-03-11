@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import ReactDOM from "react-dom";
 
 import Draggable from "react-draggable";
@@ -14,6 +14,7 @@ const Modal = ({
   modalControls = true,
 }) => {
   const { error, setError, loading } = useContext(ErrorContext);
+  const nodeRef = useRef(null);
 
   const handleErrorCancel = () => {
     setError(false);
@@ -24,8 +25,8 @@ const Modal = ({
   return ReactDOM.createPortal(
     <>
       <div className="overlay"></div>
-      <Draggable handle=".title-bar" positionOffset={{ x: "-50%", y: "-50%" }}>
-        <div className="modal window">
+      <Draggable positionOffset={{ x: "-50%", y: "-50%" }} nodeRef={nodeRef}>
+        <div className="modal window" ref={nodeRef}>
           <div className="title-bar">
             <div className="title-bar-text">
               <h1>{title}</h1>
