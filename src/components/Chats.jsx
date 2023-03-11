@@ -38,7 +38,6 @@ const Chats = () => {
         return b[1].date - a[1].date;
       });
     });
-    console.log("sorted");
   }, [chats]);
 
   const handleSelect = (u) => {

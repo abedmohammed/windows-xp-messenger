@@ -42,7 +42,7 @@ const Register = () => {
         dbCollection: "userNames",
         dbField: "userName",
         dbOperator: "==",
-        dbMatch: displayName,
+        dbMatch: displayName.toLowerCase(),
         handleQuery: () => {
           throw new Error("This username is already in use.");
         },
@@ -85,11 +85,12 @@ const Register = () => {
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         displayName,
+        displayNameLower: displayName.toLowerCase(),
         photoURL: downloadURL,
       });
 
       await setDoc(doc(db, "userNames", res.user.uid), {
-        userName: displayName,
+        userName: displayName.toLowerCase(),
       });
 
       setLoading({ value: 100, message: "finalizing account creation" });

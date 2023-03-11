@@ -6,6 +6,7 @@ import Modal from "../components/Modal";
 import Warning from "../assets/images/warning.png";
 import { ErrorContext } from "../context/ErrorContext";
 import { ChatContext } from "../context/ChatContext";
+import { WindowsContext } from "../context/WindowsContext";
 import TitleBar from "../components/TitleBar";
 import Draggable from "react-draggable";
 
@@ -33,6 +34,7 @@ const zReducer = (state, action) => {
 const Home = () => {
   const { error, loading } = useContext(ErrorContext);
   const { data, dispatch } = useContext(ChatContext);
+  const { setComponents } = useContext(WindowsContext);
   const [zElements, zDispatch] = useReducer(zReducer, initialState);
 
   const handleCloseChat = () => {

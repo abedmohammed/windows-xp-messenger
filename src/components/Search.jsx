@@ -27,9 +27,9 @@ const Search = () => {
     try {
       await performQuery({
         dbCollection: "users",
-        dbField: "displayName",
+        dbField: "displayNameLower",
         dbOperator: "==",
-        dbMatch: username,
+        dbMatch: username.toLowerCase(),
         handleQuery: (doc) => {
           setUser(doc.data());
           foundUser = true;

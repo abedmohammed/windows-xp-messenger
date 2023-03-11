@@ -5,14 +5,6 @@
   display: flex;
   flex-direction: column;
 
-  &__no-sender {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-content: center;
-    font-size: 16px;
-  }
-
   .sender {
     margin: 5px 0 10px 0;
     display: flex;
@@ -22,81 +14,6 @@
     &__icon {
       width: 20px;
       height: 20px;
-    }
-  }
-
-  .messages {
-    flex: 1;
-    border: 1px solid #7f9db9;
-    background-color: #fff;
-    padding: 10px;
-    height: calc(100% - 160px);
-    overflow-y: scroll;
-
-    .message {
-      &:not(:last-child) {
-        margin-bottom: 25px;
-      }
-
-      &__row {
-        display: flex;
-        align-items: flex-end;
-        gap: 10px;
-      }
-
-      &__info {
-        width: 40px;
-      }
-
-      &__time {
-        text-align: left;
-        font-size: 10px;
-        color: gray;
-        margin-top: 5px;
-      }
-
-      &__profile-pic {
-        display: block;
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-      }
-
-      &__content {
-        max-width: 80%;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      &__text {
-        background-color: #d3e5fa;
-        padding: 10px 20px;
-        max-width: max-content;
-      }
-
-      &__image {
-        width: 50%;
-      }
-
-      &.owner {
-        .message__row {
-          flex-direction: row-reverse;
-        }
-
-        .message__content {
-          align-items: flex-end;
-        }
-
-        .message__time {
-          text-align: right;
-        }
-
-        .message__text {
-          background-color: #0058f4;
-          color: white;
-        }
-      }
     }
   }
 
