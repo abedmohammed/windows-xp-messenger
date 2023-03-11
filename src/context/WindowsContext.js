@@ -5,6 +5,7 @@ import TitleBar from "../components/TitleBar";
 export const WindowsContext = createContext();
 
 export const WindowsContextProvider = ({ children }) => {
+  const [maxZ, setMaxZ] = useState(0);
   const [components, setComponents] = useState([
     {
       name: "window-friends",
@@ -20,10 +21,22 @@ export const WindowsContextProvider = ({ children }) => {
     },
   ]);
 
-  console.log(components);
+  const getMaxZ = () => {
+    let z = 0;
+    components.forEach((component) => {
+      if (component.zIndex > z) {
+        z = component.zIndex;
+      }
+    });
+
+    setMaxZ(z);
+    return z;
+  };
 
   return (
-    <WindowsContext.Provider value={{ components, setComponents }}>
+    <WindowsContext.Provider
+      value={{ components, setComponents, getMaxZ, maxZ }}
+    >
       {children}
     </WindowsContext.Provider>
   );

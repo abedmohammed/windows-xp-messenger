@@ -12,7 +12,8 @@ import Draggable from "react-draggable";
 const Home = () => {
   const { error, loading } = useContext(ErrorContext);
   const { data, dispatch } = useContext(ChatContext);
-  const { components, setComponents } = useContext(WindowsContext);
+  const { components, setComponents, getMaxZ, maxZ } =
+    useContext(WindowsContext);
 
   useEffect(() => {
     const handleCloseChat = () => {
@@ -62,8 +63,11 @@ const Home = () => {
     () =>
       components.map((component) => {
         return (
-          <div>
+          <div style={{ zIndex: component.zIndex }}>
             <Draggable
+              onStart={() => {
+                component.zIndex = getMaxZ() + 1;
+              }}
               handle=".title-bar"
               positionOffset={{ x: "-50%", y: "-50%" }}
             >
@@ -72,7 +76,7 @@ const Home = () => {
           </div>
         );
       }),
-    [components]
+    [components, maxZ, getMaxZ]
   );
 
   return (
