@@ -76,7 +76,7 @@ const Home = () => {
           </div>
         );
       }),
-    [components, getMaxZ]
+    [components, maxZ, getMaxZ]
   );
 
   return (
