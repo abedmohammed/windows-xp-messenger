@@ -49,6 +49,7 @@
     }
 
     &__image {
+      cursor: pointer;
       width: 50%;
     }
 
@@ -70,11 +71,16 @@
         color: white;
       }
     }
+  }
+}
 
-    .expanded-img {
-      img {
-        width: 50%;
-      }
-    }
+.window-full-image {
+  img {
+    width: 100%;
+  }
+
+  .window-body {
+    background-color: #fff;
+    max-width: 650px;
   }
 }

@@ -1,28 +1,53 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import Draggable from "react-draggable";
 import TitleBar from "./TitleBar";
+import { WindowsContext } from "../context/WindowsContext";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
 const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
-  const [openImage, setOpenImage] = useState();
   const { data } = useContext(ChatContext);
+  const { setComponents, getMaxZ } = useContext(WindowsContext);
 
   const ref = useRef();
-  const nodeRef = useRef();
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
+  const handleCloseChat = (imageName, num) => {
+    setComponents((prevComponents) => {
+      return prevComponents.filter(
+        (component) => component.name !== `window-image-${imageName}-${num}`
+      );
+    });
+  };
+
   const imageOpenHandler = (image) => {
-    setOpenImage(image);
+    setComponents((prevComponents) => {
+      return [
+        ...prevComponents,
+        {
+          name: `window-image-${image}-${prevComponents.length}`,
+          zIndex: getMaxZ() + 1,
+          jsx: (
+            <div className="window-full-image window">
+              <TitleBar
+                onClose={() => handleCloseChat(image, prevComponents.length)}
+              />
+              <div className="window-body">
+                <img src={image} alt="" />
+              </div>
+            </div>
+          ),
+        },
+      ];
+    });
   };
 
   return (
@@ -31,20 +56,6 @@ const Message = ({ message }) => {
         message.senderId === currentUser.uid ? "owner" : ""
       }`}
     >
-      {openImage && (
-        <Draggable
-          handle=".title-bar"
-          positionOffset={{ x: "-50%", y: "-50%" }}
-          nodeRef={nodeRef}
-        >
-          <div className="expanded-img window">
-            <TitleBar />
-            <div className="login window-body">
-              <img src={openImage} alt="" />
-            </div>
-          </div>
-        </Draggable>
-      )}
       <div className="message__row">
         <div className="message__info">
           <img

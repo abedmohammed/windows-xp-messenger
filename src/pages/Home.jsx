@@ -63,7 +63,7 @@ const Home = () => {
     () =>
       components.map((component) => {
         return (
-          <div style={{ zIndex: component.zIndex }}>
+          <div key={component.name} style={{ zIndex: component.zIndex }}>
             <Draggable
               onStart={() => {
                 component.zIndex = getMaxZ() + 1;

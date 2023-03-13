@@ -9,7 +9,7 @@ export const WindowsContextProvider = ({ children }) => {
   const [components, setComponents] = useState([
     {
       name: "window-friends",
-      zIndex: 0,
+      zIndex: 1,
       jsx: (
         <div className="window">
           <TitleBar />
