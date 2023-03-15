@@ -9,7 +9,7 @@ import { WindowsContext } from "../context/WindowsContext";
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
-const Message = ({ message }) => {
+const Message = ({ message, messageStatus, lastMessage }) => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
   const { setComponents, getMaxZ } = useContext(WindowsContext);
@@ -84,6 +84,9 @@ const Message = ({ message }) => {
       </div>
       <p className="message__time">
         {timeAgo.format(new Date(message.date.seconds * 1000))}
+        {message.senderId === currentUser.uid && lastMessage
+          ? ` - ${messageStatus ? "Read" : "Delivered"}`
+          : ""}
       </p>
       <div className="message__bottom" ref={ref}></div>
     </div>

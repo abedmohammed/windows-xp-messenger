@@ -74,6 +74,7 @@ const Input = () => {
 
       // Update last message for both users
       await updateDoc(doc(db, "userChats", currentUser.uid), {
+        [data.chatId + ".read"]: false,
         [data.chatId + ".lastMessage"]: {
           sender: "you",
           text: text || img.name,
@@ -84,6 +85,7 @@ const Input = () => {
       await updateDoc(doc(db, "userChats", data.user.uid), {
         [data.chatId + ".read"]: false,
         [data.chatId + ".lastMessage"]: {
+          sender: "them",
           text: text || img.name,
         },
         [data.chatId + ".date"]: serverTimestamp(),

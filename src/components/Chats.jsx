@@ -51,6 +51,10 @@ const Chats = () => {
       [combinedId + ".read"]: true,
     });
 
+    await updateDoc(doc(db, "userChats", u.uid), {
+      [combinedId + ".read"]: true,
+    });
+
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 
@@ -71,11 +75,13 @@ const Chats = () => {
             <p className="chat-preview__name">{chat[1].userInfo.displayName}</p>
             <p
               className={`chat-preview__latest ${
-                chat[1].read === false ? "unread" : ""
+                chat[1].read === false && chat[1].lastMessage?.sender === "them"
+                  ? "unread"
+                  : ""
               }`}
             >
               <span>
-                {chat[1].lastMessage?.sender && "you: "}
+                {chat[1].lastMessage?.sender === "you" && "you: "}
                 {chat[1].lastMessage?.text}
               </span>
             </p>

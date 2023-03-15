@@ -7,6 +7,7 @@ import Message from "./Message";
 
 const Messages = () => {
   const [messages, setMessages] = useState();
+  const [messageStatus, setMessageStatus] = useState();
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
@@ -18,8 +19,13 @@ const Messages = () => {
     const unSubUsers = onSnapshot(
       doc(db, "userChats", currentUser.uid),
       (document) => {
-        if (!document.data()[data.chatId].lastMessage?.sender) {
+        setMessageStatus(document.data()[data.chatId].read);
+        if (document.data()[data.chatId].lastMessage?.sender !== "you") {
           updateDoc(doc(db, "userChats", currentUser.uid), {
+            [data.chatId + ".read"]: true,
+          });
+
+          updateDoc(doc(db, "userChats", data.user.uid), {
             [data.chatId + ".read"]: true,
           });
         }
@@ -35,9 +41,19 @@ const Messages = () => {
   return (
     <>
       <div className="messages">
-        {messages?.map((m) => (
-          <Message message={m} key={m.id} />
-        ))}
+        {messages?.map((m) => {
+          if (m === messages.at(-1)) {
+            return (
+              <Message
+                message={m}
+                key={m.id}
+                messageStatus={messageStatus}
+                lastMessage={true}
+              />
+            );
+          }
+          return <Message message={m} key={m.id} />;
+        })}
       </div>
     </>
   );
