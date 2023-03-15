@@ -53,7 +53,9 @@ const Message = ({ message }) => {
   return (
     <div
       className={`message ${
-        message.senderId === currentUser.uid ? "owner" : ""
+        message.senderId === currentUser.uid
+          ? "message--owner"
+          : "message--sender"
       }`}
     >
       <div className="message__row">

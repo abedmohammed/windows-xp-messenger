@@ -8,7 +8,7 @@
 
   .message {
     &:not(:last-child) {
-      margin-bottom: 25px;
+      margin-bottom: 10px;
     }
 
     &__row {
@@ -22,6 +22,7 @@
     }
 
     &__time {
+      display: none;
       text-align: left;
       font-size: 10px;
       color: gray;
@@ -29,7 +30,7 @@
     }
 
     &__profile-pic {
-      display: block;
+      display: none;
       width: 40px;
       height: 40px;
       object-fit: cover;
@@ -38,6 +39,7 @@
     &__content {
       max-width: 80%;
       display: flex;
+      align-self: flex-start;
       flex-direction: column;
       gap: 10px;
     }
@@ -53,7 +55,7 @@
       width: 50%;
     }
 
-    &.owner {
+    &--owner {
       .message__row {
         flex-direction: row-reverse;
       }
@@ -70,6 +72,20 @@
         background-color: #0058f4;
         color: white;
       }
+    }
+  }
+
+  // Owner last message
+  .message + .message:not(:has(+ .message--owner)):not(.message--sender),
+  .message + .message:not(:has(+ .message--sender)):not(.message--owner),
+  .message:not(:has(+ .message--owner)):not(.message--sender),
+  .message:not(:has(+ .message--sender)):not(.message--owner) {
+    .message__profile-pic {
+      display: block;
+    }
+
+    .message__time {
+      display: block;
     }
   }
 }
