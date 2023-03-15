@@ -1,24 +1,55 @@
 .register {
-  width: 250px;
+  width: 300px;
+  padding: 4px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__field {
+    display: grid;
+    align-items: center;
+    width: 95%;
+    gap: 5px;
+    grid-template-columns: 60px 1fr;
+
+    &--username,
+    &--email,
+    &--password-confirm,
+    &--image {
+      margin-bottom: 10px;
+    }
+
+    &--image {
+      cursor: pointer;
+      img {
+        border-right: 1px solid #7f9db9;
+      }
+    }
+  }
 
   &__title {
     margin-bottom: 16px;
   }
 
-  &__profile-pic {
-    margin: 0;
-  }
-
-  &__upload-image {
-    cursor: pointer;
+  &__image {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fcfcfe;
+    border: 1px solid #7f9db9;
   }
 
   &__attached {
     word-wrap: break-word;
-    margin: 0 10px 10px 10px;
+    // margin: 0 10px 10px 10px;
   }
 
   &__submit {
+    // width: 50px;
+    // align-self: end;
     margin: 6px 0 12px 0;
   }
 }
