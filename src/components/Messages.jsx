@@ -1,23 +1,36 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
-
 import Message from "./Message";
 
 const Messages = () => {
   const [messages, setMessages] = useState();
+  const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   useEffect(() => {
-    const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+    const unSubChats = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
     });
 
+    const unSubUsers = onSnapshot(
+      doc(db, "userChats", currentUser.uid),
+      (document) => {
+        if (!document.data()[data.chatId].lastMessage?.sender) {
+          updateDoc(doc(db, "userChats", currentUser.uid), {
+            [data.chatId + ".read"]: true,
+          });
+        }
+      }
+    );
+
     return () => {
-      unSub();
+      unSubChats();
+      unSubUsers();
     };
-  }, [data.chatId]);
+  }, [data.chatId, currentUser.uid]);
 
   return (
     <>

@@ -46,6 +46,7 @@ const Chats = () => {
         ? currentUser.uid + u.uid
         : u.uid + currentUser.uid;
 
+    // Sets current message to true since it was read
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [combinedId + ".read"]: true,
     });
