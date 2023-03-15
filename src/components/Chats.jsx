@@ -1,4 +1,4 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
@@ -40,7 +40,16 @@ const Chats = () => {
     });
   }, [chats]);
 
-  const handleSelect = (u) => {
+  const handleSelect = async (u) => {
+    const combinedId =
+      currentUser.uid > u.uid
+        ? currentUser.uid + u.uid
+        : u.uid + currentUser.uid;
+
+    await updateDoc(doc(db, "userChats", currentUser.uid), {
+      [combinedId + ".read"]: true,
+    });
+
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 
@@ -59,7 +68,16 @@ const Chats = () => {
           />
           <div className="chat-preview">
             <p className="chat-preview__name">{chat[1].userInfo.displayName}</p>
-            <p className="chat-preview__latest">{chat[1].lastMessage?.text}</p>
+            <p
+              className={`chat-preview__latest ${
+                chat[1].read === false ? "unread" : ""
+              }`}
+            >
+              <span>
+                {chat[1].lastMessage?.sender && "you: "}
+                {chat[1].lastMessage?.text}
+              </span>
+            </p>
           </div>
         </div>
       ))}
