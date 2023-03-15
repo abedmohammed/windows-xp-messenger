@@ -74,7 +74,7 @@ const Register = () => {
 
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      const storageRef = ref(storage, displayName);
+      const storageRef = ref(storage, `userProfiles/${displayName}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       setLoading({ value: 40, message: "uploading image" });
@@ -135,12 +135,17 @@ const Register = () => {
             <form className="register__form" onSubmit={handleSubmit}>
               <div className="register__field register__field--username">
                 <label htmlFor="name">Username</label>
-                <input id="name" type="text" placeholder="username" />
+                <input
+                  autocomplete="off"
+                  id="name"
+                  type="text"
+                  placeholder="username"
+                />
               </div>
 
               <div className="register__field register__field--email">
                 <label htmlFor="email">Email</label>
-                <input type="email" placeholder="email" />
+                <input type="email" placeholder="email" autocomplete="email" />
               </div>
 
               <div className="register__field register__field--password">
@@ -188,7 +193,6 @@ const Register = () => {
               </div>
               <button className="register__submit">Sign Up</button>
             </form>
-            <button className="register__submit">Sign In With Google</button>
             <p className="register__existing">
               You already have an account? <Link to="/login">Login</Link>
             </p>

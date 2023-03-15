@@ -35,7 +35,13 @@ const Input = () => {
     try {
       if (img) {
         setLoading({ value: 10, message: "uploading image", type: "input" });
-        const storageRef = ref(storage, uuid());
+
+        const combinedId =
+          currentUser.uid > data.user.uid
+            ? currentUser.uid + data.user.uid
+            : data.user.uid + currentUser.uid;
+
+        const storageRef = ref(storage, `${combinedId}/${uuid()}`);
         const uploadTask = uploadBytesResumable(storageRef, img);
 
         setLoading({ value: 30, message: "uploading image", type: "input" });
@@ -76,7 +82,7 @@ const Input = () => {
 
       await updateDoc(doc(db, "userChats", data.user.uid), {
         [data.chatId + ".lastMessage"]: {
-          text,
+          text: text || img.name,
         },
         [data.chatId + ".date"]: serverTimestamp(),
       });
