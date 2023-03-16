@@ -7,7 +7,13 @@ const TitleBar = ({ title, onClose }) => {
         <h1>{title || "Windows XP Messenger"}</h1>
       </div>
       <div className="title-bar-controls">
-        {onClose && <button aria-label="Close" onClick={onClose} />}
+        {onClose && (
+          <button
+            aria-label="Close"
+            onClick={onClose}
+            className="title-bar-controls-close"
+          />
+        )}
       </div>
     </div>
   );

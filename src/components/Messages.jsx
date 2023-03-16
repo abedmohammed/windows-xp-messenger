@@ -36,7 +36,7 @@ const Messages = () => {
       unSubChats();
       unSubUsers();
     };
-  }, [data.chatId, currentUser.uid]);
+  }, [data.chatId, currentUser.uid, data.user.uid]);
 
   return (
     <>

@@ -65,6 +65,7 @@ const Home = () => {
         return (
           <div key={component.name} style={{ zIndex: component.zIndex }}>
             <Draggable
+              cancel=".title-bar-controls-close"
               onStart={() => {
                 component.zIndex = getMaxZ() + 1;
               }}

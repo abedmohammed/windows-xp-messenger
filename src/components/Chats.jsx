@@ -1,4 +1,4 @@
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
@@ -41,11 +41,6 @@ const Chats = () => {
   }, [chats]);
 
   const handleSelect = async (u) => {
-    const combinedId =
-      currentUser.uid > u.uid
-        ? currentUser.uid + u.uid
-        : u.uid + currentUser.uid;
-
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 

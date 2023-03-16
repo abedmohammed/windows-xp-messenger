@@ -5,6 +5,10 @@
   display: flex;
   flex-direction: column;
 
+  @media only screen and (max-width: 37.5em) {
+    width: 300px;
+  }
+
   .sender {
     margin: 5px 0 10px 0;
     display: flex;

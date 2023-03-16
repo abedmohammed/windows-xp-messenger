@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 import Alert from "../assets/images/alert.png";
 import { ErrorContext } from "../context/ErrorContext";
 import Modal from "../components/Modal";
@@ -19,6 +23,7 @@ const Login = () => {
     const password = e.target[1].value;
 
     try {
+      await setPersistence(auth, browserSessionPersistence);
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (err) {
