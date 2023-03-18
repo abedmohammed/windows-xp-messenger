@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from "react";
 import Chat from "../components/Chat";
 import Modal from "../components/Modal";
 import Warning from "../assets/images/warning.png";
+import Checkmark from "../assets/images/checkmark.png";
 import { ErrorContext } from "../context/ErrorContext";
 import { ChatContext } from "../context/ChatContext";
 import { WindowsContext } from "../context/WindowsContext";
@@ -10,7 +11,7 @@ import TitleBar from "../components/TitleBar";
 import Draggable from "react-draggable";
 
 const Home = () => {
-  const { error, loading } = useContext(ErrorContext);
+  const { error, loading, success } = useContext(ErrorContext);
   const { data, dispatch } = useContext(ChatContext);
   const { components, setComponents, getMaxZ, maxZ } =
     useContext(WindowsContext);
@@ -84,6 +85,9 @@ const Home = () => {
     <div className="window-container">
       {error && (
         <Modal title="Error" modalMessage={error} modalImage={Warning} />
+      )}
+      {success && (
+        <Modal title="Success" modalMessage={success} modalImage={Checkmark} />
       )}
       {loading.type === "input" && (
         <Modal modalControls={false} title="Uploading" />

@@ -15,7 +15,7 @@ import { ErrorContext } from "../context/ErrorContext";
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const { setError } = useContext(ErrorContext);
+  const { setError, setSuccess } = useContext(ErrorContext);
 
   const { performQuery } = useQuerydb();
 
@@ -114,6 +114,7 @@ const Search = () => {
               status: "requested",
             },
           });
+          setSuccess("Friend Request Sent!");
         } else {
           if (!res.data()[currentUser.uid]) {
             await updateDoc(doc(db, "friendRequests", user.uid), {
@@ -121,6 +122,7 @@ const Search = () => {
                 status: "requested",
               },
             });
+            setSuccess("Friend Request Sent!");
           } else {
             const requestStatus = res.data()[currentUser.uid].status;
             if (requestStatus === "requested" || requestStatus === "rejected") {

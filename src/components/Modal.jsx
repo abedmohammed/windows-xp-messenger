@@ -13,14 +13,16 @@ const Modal = ({
   modalActions,
   modalControls = true,
 }) => {
-  const { error, setError, loading } = useContext(ErrorContext);
+  const { error, setError, loading, success, setSuccess } =
+    useContext(ErrorContext);
   const nodeRef = useRef(null);
 
-  const handleErrorCancel = () => {
+  const handleCancel = () => {
     setError(false);
+    setSuccess(false);
   };
 
-  modalActions ||= [{ label: "Ok", handler: handleErrorCancel }];
+  modalActions ||= [{ label: "Ok", handler: handleCancel }];
 
   return ReactDOM.createPortal(
     <>
@@ -38,7 +40,7 @@ const Modal = ({
             </div>
           </div>
           <div className="window-body modal__content">
-            {error && (
+            {(error || success) && (
               <ErrorModal
                 modalImage={modalImage}
                 modalMessage={modalMessage}
