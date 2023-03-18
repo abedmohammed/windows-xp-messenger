@@ -7,8 +7,8 @@
 }
 
 body {
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
 
   background-image: url(../assets/images/xpwallpaper.webp);
   background-repeat: no-repeat;
@@ -44,6 +44,7 @@ button {
 
 .window-container {
   display: flex;
+  overflow: hidden;
 }
 
 .window {

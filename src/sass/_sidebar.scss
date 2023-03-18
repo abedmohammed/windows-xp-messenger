@@ -13,6 +13,7 @@
     }
 
     &__result {
+      cursor: pointer;
       border: 1px solid #7f9db9;
       padding: 5px;
       display: flex;
@@ -27,6 +28,19 @@
     }
     &__name {
       margin-bottom: 5px;
+    }
+  }
+
+  .requests {
+    cursor: pointer;
+    border: 1px solid #7f9db9;
+    padding: 5px 0 5px 5px;
+    p {
+      font-family: "Pixelated MS Sans Serif", Arial;
+      span {
+        color: blue;
+        text-decoration: underline;
+      }
     }
   }
 

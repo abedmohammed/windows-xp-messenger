@@ -1,0 +1,34 @@
+.request {
+  max-height: 300px;
+  overflow-y: scroll;
+
+  &__friend {
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted #5b6c7c;
+    margin-right: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__profile-pic {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  .request-preview {
+    flex: 1;
+
+    &__name {
+      margin-bottom: 10px;
+    }
+    &__options {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}

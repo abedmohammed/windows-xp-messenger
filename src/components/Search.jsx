@@ -33,8 +33,19 @@ const Search = () => {
         handleQuery: (doc) => {
           setUser(doc.data());
           foundUser = true;
+
+          if (doc.data().uid === currentUser.uid) {
+            foundUser = "you";
+          }
         },
       });
+      if (foundUser === "you") {
+        setUser(null);
+        setUsername("");
+        throw new Error(
+          "You cannot add yourself! Please enter a valid username."
+        );
+      }
 
       if (!foundUser) {
         setUser(null);
@@ -52,16 +63,25 @@ const Search = () => {
   };
 
   const handleSelect = async (u) => {
-    // Check if the group chat exists in firestore
     const combinedId =
       currentUser.uid > user.uid
         ? currentUser.uid + user.uid
         : user.uid + currentUser.uid;
 
     try {
-      const res = await getDoc(doc(db, "chats", combinedId));
+      const resChat = await getDoc(doc(db, "chats", combinedId));
+      if (resChat.exists()) {
+        throw new Error(`You are already friends with ${user.displayName}!`);
+      }
 
-      if (!res.exists()) {
+      const resYou = await getDoc(doc(db, "friendRequests", currentUser.uid));
+      if (resYou.exists() && resYou?.data()[user.uid]?.status === "requested") {
+        await updateDoc(doc(db, "friendRequests", currentUser.uid), {
+          [user.uid]: {
+            status: "accepted",
+          },
+        });
+
         // Create a chat in the chats collections between the two users
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
@@ -83,13 +103,38 @@ const Search = () => {
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
+
+        dispatch({ type: "CHANGE_USER", payload: user });
+      } else {
+        const res = await getDoc(doc(db, "friendRequests", user.uid));
+
+        if (!res.exists()) {
+          await setDoc(doc(db, "friendRequests", user.uid), {
+            [currentUser.uid]: {
+              status: "requested",
+            },
+          });
+        } else {
+          if (!res.data()[currentUser.uid]) {
+            await updateDoc(doc(db, "friendRequests", user.uid), {
+              [currentUser.uid]: {
+                status: "requested",
+              },
+            });
+          } else {
+            const requestStatus = res.data()[currentUser.uid].status;
+            if (requestStatus === "requested" || requestStatus === "rejected") {
+              throw new Error(
+                `You already have a pending friend request for ${user.displayName}.`
+              );
+            }
+          }
+        }
       }
     } catch (err) {
       setError(err.message);
       console.error(err);
     }
-
-    dispatch({ type: "CHANGE_USER", payload: u });
 
     setUser(null);
     setUsername("");
