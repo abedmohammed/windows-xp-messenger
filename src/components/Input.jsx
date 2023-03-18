@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Img from "../assets/images/img.png";
 import { AuthContext } from "../context/AuthContext";
@@ -23,6 +23,11 @@ const Input = () => {
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
+
+  useEffect(() => {
+    setText("");
+    setImg(null);
+  }, [data.user]);
 
   const handleSend = async (e) => {
     e.preventDefault();
