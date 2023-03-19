@@ -11,7 +11,7 @@
 <h1 align="center">WindowsXP Messenger</h1>
 
   <p align="center">
-    A fully functioning friend messaging application with the look and feel of the 2001 Windows XP
+    A fully functioning friend messaging web application with the look and feel of the 2001 Windows XP
     <br />
     <br />
     <a href="https://xpmessenger.com/">View Demo</a>
@@ -19,48 +19,10 @@
 </div>
 
 
-<!-- TABLE OF CONTENTS -->
-- intro
-- table of contents
-- image
-- how to use
-- development
-  - goals
-  - things i learned
-  - things i would improve
-- credits
-
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
 <!-- Preview -->
 ## Preview
 
-[<img src="https://github.com/abedmohammed/windows-xp-messenger/blob/main/screenshot1.png" alt="Screenshot to demo the site">](https://xpmessenger.com/)
-
+[<img src="https://user-images.githubusercontent.com/72363970/226183159-792b84c1-4995-4a9b-994e-0fac10bc8ca9.png" alt="Screenshot to demo the site">](https://xpmessenger.com/)
 
 ### Built With
 
@@ -78,16 +40,17 @@
 
 You can visit the website and use the chat at [https://xpmessenger.com/](https://xpmessenger.com/)
 
-If you do not have an account you can register by clicking the "register" anchor element or directly visiting [https://xpmessenger.com/register](https://xpmessenger.com/register)
+If you do not have an account you can register by clicking the "register" link in the login page or by directly visiting [https://xpmessenger.com/register](https://xpmessenger.com/register)
 
 ### Registering
-
 
 <img align="center" src="https://user-images.githubusercontent.com/72363970/226182395-12dffe99-c99d-4c2a-bd92-3534658786cf.gif" alt="registering an account" width="550" height="450">
 
 <br />
 
-Accounts are registered and authenticated using Firebase. With Firebase, I am able to use their rules feature to implement server side verification and security. For example, uploaded images have to be a maximum of 1MB, and the password cannot be smaller than 6 characters. Also using rules and Firebase authentication, I can ensure that relevant data is only accessible to the correct user.
+🔵 Accounts are registered and authenticated using Firebase. With Firebase, I am able to use their rules feature to implement server side verification and security. For example, uploaded images have to be a maximum of 1MB, and the password cannot be smaller than 6 characters. Also using rules and Firebase authentication, I can ensure that relevant data is only accessible to the correct user.
+
+<br />
 
 ### Adding Users
 
@@ -95,33 +58,47 @@ Accounts are registered and authenticated using Firebase. With Firebase, I am ab
 
 <br />
 
-Accounts are registered and authenticated using Firebase. With Firebase, I am able to use their rules feature to implement server side verification and security. For example, uploaded images have to be a maximum of 1MB, and the password cannot be smaller than 6 characters. Also using rules and Firebase authentication, I can ensure that relevant data is only accessible to the correct user.
+🔵 You can send, receive, accept, and decline friend requests. By searching up the user's username, you can send a friend request. The user will see the pending friend requests under their search bar and will be able to accept or decline incoming requests. Once you accept a user's friend request, you are now able to have a chat with them as they are added to your friends list.
+
+<br />
 
 ### Messaging
 
+<img align="center" src="https://user-images.githubusercontent.com/72363970/226183640-120b4fd7-cb38-4c75-a64a-9edacd52a181.gif" alt="messaging a friend" width="600" height="400">
 
+<br />
+
+<img align="center" src="https://user-images.githubusercontent.com/72363970/226183906-16e728ba-bbe4-4612-b37c-26cffd0fc884.gif" alt="sending a picture" width="600" height="400">
+
+<br />
+
+🔵 When you receive a message, you will receive a notification for unread messages in your friends list
+
+🔵 New messages will move the user to the top of your friends list
+
+🔵 You are able to see if the other person has read your message or left you on delivered
+
+🔵 You are able to upload images and open them to view
+
+🔵 Messages are grouped and timestamped 
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Mohammed Abed 💠 abedmohammed353@gmail.com 💠 https://github.com/abedmohammed
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+## Credits
 
-* []()
-* []()
-* []()
+* [xp.css](https://botoxparty.github.io/XP.css/)
+* [react-draggable](https://www.npmjs.com/package/react-draggable)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
