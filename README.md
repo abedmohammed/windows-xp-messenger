@@ -20,11 +20,12 @@
 
 
 <!-- Preview -->
-## Preview
+## 📷 Preview
 
 [<img src="https://user-images.githubusercontent.com/72363970/226183159-792b84c1-4995-4a9b-994e-0fac10bc8ca9.png" alt="Screenshot to demo the site">](https://xpmessenger.com/)
 
-### Built With
+
+### 👩‍💻 Built With
 
 [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/)
 [![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/en/main)
@@ -32,11 +33,10 @@
 [![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
 [![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)](https://www.netlify.com/)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+<br />
 
 <!-- Showcase -->
-## Showcase
+## 👨‍🏫 Showcase
 
 You can visit the website and use the chat at [https://xpmessenger.com/](https://xpmessenger.com/)
 
@@ -82,23 +82,20 @@ If you do not have an account you can register by clicking the "register" link i
 
 🔵 Messages are grouped and timestamped 
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- CONTACT -->
-## Contact
-
-Mohammed Abed 💠 abedmohammed353@gmail.com 💠 https://github.com/abedmohammed
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+<br />
 
 <!-- ACKNOWLEDGMENTS -->
-## Credits
+## 📚 Credits & Notes
 
 * [xp.css](https://botoxparty.github.io/XP.css/)
 * [react-draggable](https://www.npmjs.com/package/react-draggable)
+* [javascript-time-ago](https://www.npmjs.com/package/javascript-time-ago)
+* [Chatapp in Firebase Tutorial](https://www.youtube.com/watch?v=k4mjF4sPITE)
+* [WindowsXP design documentation](http://interface.free.fr/Archives/GUI_Xp.pdf)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br />
+<br />
 
+<div align="center">
+  Mohammed Abed 💠 abedmohammed353@gmail.com 💠 https://github.com/abedmohammed
+</div>
