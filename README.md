@@ -14,7 +14,7 @@
     A fully functioning friend messaging web application with the look and feel of the 2001 Windows XP
     <br />
     <br />
-    <a href="https://xpmessenger.com/">View Demo</a>
+    <a href="https://xpmessenger.com/">xpmessenger.com</a>
   </p>
 </div>
 
