@@ -179,7 +179,7 @@ const Register = () => {
                   <div className="register__image">
                     <img src={Add} alt="" />
                     <div className="register__attached">
-                      {fileName ? fileName : "None Selected"}
+                      <p>{fileName ? fileName : "None Selected"}</p>
                     </div>
                   </div>
                 </label>
