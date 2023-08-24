@@ -40,6 +40,10 @@
 
 You can visit the website and use the chat at [https://xpmessenger.com/](https://xpmessenger.com/)
 
+Test Account
+email: janedough@test.com
+password: 123456
+
 If you do not have an account you can register by clicking the "register" link in the login page or by directly visiting [https://xpmessenger.com/register](https://xpmessenger.com/register)
 
 ### Registering
