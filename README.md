@@ -97,5 +97,5 @@ If you do not have an account you can register by clicking the "register" link i
 <br />
 
 <div align="center">
-  Mohammed Abed 💠 abedmohammed353@gmail.com 💠 https://github.com/abedmohammed
+  Mohammed Abed 💠 abedm@mcmaster.ca 💠 https://github.com/abedmohammed
 </div>
