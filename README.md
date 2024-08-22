@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/abedmohammed/windows-xp-messenger">
+  <a href="">
     <img src="https://github.com/abedmohammed/windows-xp-messenger/blob/main/src/assets/images/windowslogo.png" alt="Logo" width="40" height="40">
     <img src="https://github.com/abedmohammed/windows-xp-messenger/blob/main/public/people.png" alt="Logo" width="40" height="40">
   </a>
@@ -14,7 +14,6 @@
     A fully functioning friend messaging web application with the look and feel of the 2001 Windows XP
     <br />
     <br />
-    <a href="https://xpmessenger.com/">xpmessenger.com</a>
   </p>
 </div>
 
@@ -38,15 +37,7 @@
 <!-- Showcase -->
 ## 👨‍🏫 Showcase
 
-You can visit the website and use the chat at [https://xpmessenger.com/](https://xpmessenger.com/)
-
-Test Account
-
-email: janedough@test.com
-
-password: 123456
-
-If you do not have an account you can register by clicking the "register" link in the login page or by directly visiting [https://xpmessenger.com/register](https://xpmessenger.com/register)
+This project is deprecated and is no longer live 😔
 
 ### Registering
 
@@ -98,10 +89,3 @@ If you do not have an account you can register by clicking the "register" link i
 * [javascript-time-ago](https://www.npmjs.com/package/javascript-time-ago)
 * [Chatapp in Firebase Tutorial](https://www.youtube.com/watch?v=k4mjF4sPITE)
 * [WindowsXP design documentation](http://interface.free.fr/Archives/GUI_Xp.pdf)
-
-<br />
-<br />
-
-<div align="center">
-  Mohammed Abed 💠 abedm@mcmaster.ca 💠 https://github.com/abedmohammed
-</div>
